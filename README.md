@@ -87,10 +87,34 @@ Build the haskell-mode Elisp:
     $ cd packages/haskell-mode/
     $ make compile haskell-mode-autoloads.el
 
-Build the structured-haskell-mode Elisp:
 
+Build the structured-haskell-mode Elisp:
     $ cd packages/structured-haskell-mode/elisp/
     $ make
+
+### MacOsX specifics\
+
+Build the haskell-mode Elisp:
+
+If you see errors complaining about cl-lib missing , its most likely
+you will need to install it as a dependency. I do this via
+(setq package-list '(cl-lib))
+you should then start emacs and do:
+M-x update-autoloads-directory
+when prompted for the directory enter the path to the structured
+haskell mode project you have just downloaded
+e.g. /Users/dev1/files/emacs-for-haskell/packages/ghci-ng
+when prompted the second time enter
+    haskell-mode-autoloads.el
+
+Build the structured-haskell-mode Elisp:
+
+If you see:
+"Symbol's function definition is void: byte-compile-disable-warning"
+you are probably running the wrong version of emacs, use the following
+    $ cd packages/structured-haskell-mode/elisp/
+    $ make EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs all
+
 
 ## Running
 
@@ -105,6 +129,18 @@ loading modules.
 In the repo directory, run this:
 
     $ emacs -Q -l init.el
+
+for MacOS:
+its best to specify explicitly as MacOs sometimes has some
+ancient versions of emacs kicking around in /usr/bin/
+    $ /Applications/Emacs.app/Contents/MacOS/Emacs -Q -l init.el
+if you find that the code is complaining saying:
+"Cannot find the program 'ghc' at 'ghci-ng'"
+it means your paths are not set up correctly.
+edit your .bash_profile file to include
+     export PATH="$HOME/Library/Haskell/bin:$PATH"
+
+
 
 The `-Q` is short for "quick" and means it will not use any existing
 Emacs configuration that you already have.
