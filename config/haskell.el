@@ -122,6 +122,7 @@ the cursor position happened."
  '(haskell-process-type 'cabal-repl)
  '(haskell-process-args-cabal-repl
    '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
+ '(haskell-process-path-cabal "nix-cabal")
  '(haskell-notify-p t)
  '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save nil)
@@ -138,10 +139,6 @@ the cursor position happened."
  '(haskell-process-suggest-haskell-docs-imports t)
  '(hindent-style "chris-done")
  '(haskell-interactive-mode-eval-mode 'haskell-mode)
- '(haskell-process-path-ghci "ghci-ng")
- '(haskell-process-args-ghci '("-ferror-spans"))
- '(haskell-process-args-cabal-repl
-   '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
  '(haskell-process-generate-tags nil)
  '(haskell-complete-module-preferred
    '("Data.ByteString"

@@ -95,22 +95,21 @@
 (setq-default indent-tabs-mode nil)
 (setq-default cursor-type 'bar)
 
-(setq gnus-button-url 'browse-url-generic)
-
 (setq ido-ignore-files '("\\.dyn_hi$""\\.dyn_o$""\\.hi$" "\\.o$" "\\.tags$" "^\\.ghci$"))
 (setq ido-max-directory-size 200000)
-
-(setq browse-url-browser-function gnus-button-url)
 
 
 ;; Global settings
 
-(setq tab-width 2)
+(setq tab-width 4)
 (setq scroll-step 1)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq require-final-newline t)
+
+(setq default-frame-alist '((font-backend . "xft")
+                            (font . "Source Code Pro-10")))
 
 
 ;; Hooks
@@ -132,6 +131,12 @@
 
 
 ;; Faces
+
+(custom-set-variables
+ '(custom-enabled-themes (quote (solarized-dark)))
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
 
 (defface esk-paren-face
   '((((class color) (background dark))

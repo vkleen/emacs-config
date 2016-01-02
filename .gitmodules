@@ -22,3 +22,6 @@
 [submodule "packages/haskell-docs"]
 	path = packages/haskell-docs
 	url = https://github.com/chrisdone/haskell-docs.git
+[submodule "themes/solarized-emacs"]
+	path = themes/solarized-emacs
+	url = https://github.com/bbatsov/solarized-emacs

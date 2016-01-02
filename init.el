@@ -8,8 +8,7 @@
 
 (defvar packages
   '(haskell-mode
-    smex
-    magit)
+    smex)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 
