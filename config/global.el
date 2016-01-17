@@ -52,6 +52,8 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c M-x") 'execute-extended-command)
 
+(global-set-key (kbd "<f4>") 'writeroom-mode)
+
 
 ;; Disable default settings
 
