@@ -8,22 +8,32 @@
 
 (defvar packages
   '(haskell-mode
-    smex)
+    smex
+    dash
+    writeroom-mode)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 
 (defvar custom-load-paths
   '("structured-haskell-mode/elisp"
     "hindent/elisp"
-    "git-modes")
+    "git-modes"
+    "auctex-latexmk"
+    "visual-fill-column")
   "Custom load paths that don't follow the normal
   package-name/module-name.el format.")
 
 (defvar configs
   '("global"
-    "haskell")
+    "haskell"
+    "notmuch"
+    "latex")
   "Configuration files that follow the config/foo.el file path
   format.")
+
+(defvar themes
+  '("solarized-emacs")
+  "Theme directories that follow the themes/theme-name file path format.")
 
 
 ;; Load packages
@@ -48,6 +58,21 @@
 (require 'hindent)
 (require 'shm-case-split)
 (require 'shm-reformat)
+
+
+;; Theme paths
+
+(cl-loop for location in themes
+         do (progn (add-to-list 'custom-theme-load-path
+                                (concat (file-name-directory (or load-file-name
+                                                                 (buffer-file-name)))
+                                        "themes/"
+                                        location))
+                   (add-to-list 'load-path
+                                (concat (file-name-directory (or load-file-name
+                                                                 (buffer-file-name)))
+                                        "themes/"
+                                        location))))
 
 
 ;; Emacs configurations

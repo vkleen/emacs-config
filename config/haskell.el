@@ -204,4 +204,4 @@ the cursor position happened."
 
 (custom-set-faces
  '(shm-quarantine-face ((t (:inherit font-lock-error))))
- '(shm-current-face ((t (:background "#efefef")))))
+ '(shm-current-face ((t (:background "#073642")))))

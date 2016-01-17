@@ -59,6 +59,10 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
+(setq default-frame-alist '((font-backend . "xft")
+			    (font . "Source Code Pro-10")
+			    (vertical-scroll-bars . nil)))
+
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
 
@@ -108,9 +112,6 @@
 
 (setq require-final-newline t)
 
-(setq default-frame-alist '((font-backend . "xft")
-                            (font . "Source Code Pro-10")))
-
 
 ;; Hooks
 
@@ -133,10 +134,10 @@
 ;; Faces
 
 (custom-set-variables
- '(custom-enabled-themes (quote (solarized-dark)))
  '(custom-safe-themes
    (quote
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+(load-theme 'solarized-dark)
 
 (defface esk-paren-face
   '((((class color) (background dark))
