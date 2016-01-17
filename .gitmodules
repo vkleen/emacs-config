@@ -30,7 +30,8 @@
 	url = https://github.com/magnars/dash.el
 [submodule "packages/auctex-latexmk"]
 	path = packages/auctex-latexmk
-	url = https://github.com/tom-tan/auctex-latexmk
+	url = file:///home/vkleen/src/auctex-latexmk
+        branch = my-changes
 [submodule "packages/writeroom-mode"]
 	path = packages/writeroom-mode
 	url = https://github.com/joostkremers/writeroom-mode
