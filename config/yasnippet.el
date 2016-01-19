@@ -1,5 +1,5 @@
 (defvar snippet-dirs
-  '("snippets")
+  '("snippets"))
 
 (setq yas-snippet-dirs '())
 
