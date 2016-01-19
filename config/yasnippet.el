@@ -1,6 +1,5 @@
 (defvar snippet-dirs
-  '("snippets"
-    "packages/yasnippets-latex/snippets"))
+  '("snippets")
 
 (setq yas-snippet-dirs '())
 
@@ -12,3 +11,4 @@
                                  loc)))
 
 (yas-global-mode 1)
+(setq yas-triggers-in-field t)
