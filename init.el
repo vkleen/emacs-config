@@ -10,7 +10,8 @@
   '(haskell-mode
     smex
     dash
-    writeroom-mode)
+    writeroom-mode
+    yasnippet)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 
@@ -27,7 +28,8 @@
   '("global"
     "haskell"
     "notmuch"
-    "latex")
+    "latex"
+    "yasnippet")
   "Configuration files that follow the config/foo.el file path
   format.")
 

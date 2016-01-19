@@ -38,3 +38,9 @@
 [submodule "packages/visual-fill-column"]
 	path = packages/visual-fill-column
 	url = https://github.com/joostkremers/visual-fill-column
+[submodule "packages/yasnippet"]
+	path = packages/yasnippet
+	url = https://github.com/capitaomorte/yasnippet
+[submodule "packages/yasnippets-latex"]
+	path = packages/yasnippets-latex
+	url = https://github.com/madsdk/yasnippets-latex
