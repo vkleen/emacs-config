@@ -114,6 +114,9 @@
 
 (setq require-final-newline t)
 
+(custom-set-variables
+ '(writeroom-fullscreen-effect (quote maximized)))
+
 
 ;; Hooks
 
@@ -173,7 +176,8 @@
 
 (custom-set-variables
  '(safe-local-variable-values
-   (quote ((haskell-indent-spaces . 4)
+   (quote ((TeX-command-default . "LatexMk")
+           (haskell-indent-spaces . 4)
            (haskell-indent-spaces . 2)
            (hindent-style . "chris-done")
            (hindent-style . "gibiansky")
