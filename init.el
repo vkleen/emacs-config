@@ -11,7 +11,6 @@
     smex
     dash
     writeroom-mode
-    yasnippet
     dired+)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
@@ -30,7 +29,7 @@
     "haskell"
     "notmuch"
     "latex"
-    "yasnippet")
+    )
   "Configuration files that follow the config/foo.el file path
   format.")
 
