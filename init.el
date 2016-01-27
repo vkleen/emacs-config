@@ -11,8 +11,7 @@
     smex
     dash
     writeroom-mode
-    dired+
-    cdlatex)
+    dired+)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 
@@ -21,7 +20,8 @@
     "hindent/elisp"
     "git-modes"
     "auctex-latexmk"
-    "visual-fill-column")
+    "visual-fill-column"
+    "cdlatex")
   "Custom load paths that don't follow the normal
   package-name/module-name.el format.")
 
