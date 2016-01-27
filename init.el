@@ -29,7 +29,7 @@
     "haskell"
     "notmuch"
     "latex"
-    )
+    "org")
   "Configuration files that follow the config/foo.el file path
   format.")
 
