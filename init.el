@@ -11,7 +11,8 @@
     smex
     dash
     writeroom-mode
-    yasnippet)
+    yasnippet
+    dired+)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 

@@ -44,3 +44,6 @@
 [submodule "packages/yasnippets-latex"]
 	path = packages/yasnippets-latex
 	url = https://github.com/madsdk/yasnippets-latex
+[submodule "packages/dired+"]
+	path = packages/dired+
+	url = https://github.com/emacsmirror/dired-plus
