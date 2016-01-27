@@ -11,7 +11,8 @@
     smex
     dash
     writeroom-mode
-    dired+)
+    dired+
+    cdlatex)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 
