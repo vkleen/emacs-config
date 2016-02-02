@@ -21,6 +21,7 @@
 
 (add-hook 'TeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'TeX-mode-hook 'turn-on-reftex)
+(add-hook 'TeX-mode-hook 'cdlatex-mode)
 
 (auctex-latexmk-setup)
 (setq auctex-latexmk-inherit-TeX-PDF-mode t)
