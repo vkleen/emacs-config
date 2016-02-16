@@ -32,9 +32,9 @@
     "notmuch"
     "latex"
     "org"
-    "yasnippet")
     "cdlatex"
     "yasnippet"
+    "magit")
   "Configuration files that follow the config/foo.el file path
   format.")
 
