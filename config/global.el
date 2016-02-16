@@ -39,11 +39,6 @@
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-z") 'ido-switch-buffer)
 
-(global-set-key (kbd "M-<left>") 'windmove-left)
-(global-set-key (kbd "M-<right>") 'windmove-right)
-(global-set-key (kbd "M-<up>") 'windmove-up)
-(global-set-key (kbd "M-<down>") 'windmove-down)
-
 (global-set-key (kbd "C-w") 'clipboard-kill-region)
 (global-set-key (kbd "M-w") 'clipboard-kill-ring-save)
 (global-set-key (kbd "C-y") 'clipboard-yank)

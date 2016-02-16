@@ -33,6 +33,8 @@
     "latex"
     "org"
     "yasnippet")
+    "cdlatex"
+    "yasnippet"
   "Configuration files that follow the config/foo.el file path
   format.")
 
