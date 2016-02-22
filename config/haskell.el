@@ -5,7 +5,6 @@
 (require 'haskell-mode)
 (require 'hindent)
 (require 'haskell-process)
-(require 'haskell-simple-indent)
 (require 'haskell-interactive-mode)
 (require 'haskell-font-lock)
 
@@ -176,7 +175,6 @@ the cursor position happened."
 (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
 (define-key haskell-mode-map (kbd "C-c C-u") 'haskell-insert-undefined)
 (define-key haskell-mode-map (kbd "C-c C-a") 'haskell-insert-doc)
-(define-key haskell-mode-map (kbd "C-<return>") 'haskell-simple-indent-newline-indent)
 (define-key haskell-mode-map (kbd "C-<right>") 'haskell-move-right)
 (define-key haskell-mode-map (kbd "C-<left>") 'haskell-move-left)
 (define-key haskell-mode-map (kbd "<space>") 'haskell-mode-contextual-space)
