@@ -6,6 +6,9 @@
 
 ;; Packages and configs to load
 
+(setq package-enable-at-startup nil)
+(package-initialize)
+
 (defvar packages
   '(haskell-mode
     smex
@@ -93,5 +96,4 @@
 ;; Mode initializations
 
 (smex-initialize)
-(turn-on-haskell-simple-indent)
 (load "haskell-mode-autoloads.el")
