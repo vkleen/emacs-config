@@ -16,3 +16,6 @@
         (insert "\\(\\)") (backward-char 2)))))
 
 (advice-add 'cdlatex-dollar :override 'vkleen--cdlatex-dollar)
+
+(custom-set-variables
+ '(cdlatex-math-symbol-alist (quote ((?> ("\\to")) (?: ("\\colon"))))))
