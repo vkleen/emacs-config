@@ -121,7 +121,6 @@ the cursor position happened."
  '(haskell-process-type 'cabal-repl)
  '(haskell-process-args-cabal-repl
    '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
- '(haskell-process-path-cabal "nix-cabal")
  '(haskell-notify-p t)
  '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save nil)
