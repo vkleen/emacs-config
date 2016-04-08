@@ -121,6 +121,15 @@ the cursor position happened."
  '(haskell-process-type 'cabal-repl)
  '(haskell-process-args-cabal-repl
    '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
+ '(haskell-process-wrapper-function
+   (lambda (argv)
+     (let ((dir (haskell-session-cabal-dir (haskell-interactive-session))))
+       (append
+        (list "nix-shell"
+              (concat dir "shell.nix")
+              "--pure"
+              "--command")
+        (list (mapconcat 'identity argv " "))))))
  '(haskell-notify-p t)
  '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save nil)
