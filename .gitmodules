@@ -4,9 +4,6 @@
 [submodule "packages/structured-haskell-mode"]
 	path = packages/structured-haskell-mode
 	url = https://github.com/chrisdone/structured-haskell-mode.git
-[submodule "packages/ghci-ng"]
-	path = packages/ghci-ng
-	url = https://github.com/chrisdone/ghci-ng.git
 [submodule "packages/hindent"]
 	path = packages/hindent
 	url = https://github.com/chrisdone/hindent.git

@@ -120,7 +120,7 @@ the cursor position happened."
 (custom-set-variables
  '(haskell-process-type 'cabal-repl)
  '(haskell-process-args-cabal-repl
-   '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
+   '("--ghc-option=-ferror-spans"))
  '(haskell-process-wrapper-function
    (lambda (argv)
      (let ((dir (haskell-session-cabal-dir (haskell-interactive-session))))
