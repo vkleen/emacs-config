@@ -15,7 +15,9 @@
     dash
     writeroom-mode
     dired+
-    yasnippet)
+    yasnippet
+    prop-menu
+    imenu-anywhere)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 
@@ -43,7 +45,8 @@
     "yasnippet"
     "magit"
     "agda"
-    "idris")
+    "idris"
+    "imenu-anywhere")
   "Configuration files that follow the config/foo.el file path
   format.")
 
