@@ -1,3 +1,4 @@
+(require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (defun magit-status--fullscreen (orig-fun &rest args)

@@ -25,7 +25,8 @@
     "git-modes"
     "auctex-latexmk"
     "visual-fill-column"
-    "cdlatex")
+    "cdlatex"
+    "magit/lisp")
   "Custom load paths that don't follow the normal
   package-name/module-name.el format.")
 
