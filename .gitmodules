@@ -44,3 +44,6 @@
 [submodule "packages/dired+"]
 	path = packages/dired+
 	url = https://github.com/emacsmirror/dired-plus
+[submodule "packages/idris-mode"]
+	path = packages/idris-mode
+	url = https://github.com/idris-hackers/idris-mode
