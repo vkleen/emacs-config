@@ -92,7 +92,7 @@
 
 ;; Default mode settings
 
-(setq default-major-mode 'text-mode)
+(setq default-major-mode 'fundamental-mode)
 (setq-default indent-tabs-mode nil)
 (setq-default cursor-type 'bar)
 
