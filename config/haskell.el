@@ -207,6 +207,20 @@ the cursor position happened."
 (define-key shm-map (kbd "C-c C-f") 'shm-fold-toggle-decl)
 (define-key shm-map (kbd "C-c i") 'shm-reformat-decl)
 
+(add-to-list 'auto-mode-alist (cons "\\.hs\\'" 'haskell-mode))
+(add-to-list 'auto-mode-alist (cons "\\.cabal\\'" 'haskell-cabal-mode))
+(add-to-list 'auto-mode-alist '("\\.hcr\\'" . haskell-core-mode))
+
 (custom-set-faces
  '(shm-quarantine-face ((t (:inherit font-lock-error))))
  '(shm-current-face ((t (:background "#073642")))))
+
+(custom-set-variables
+ '(safe-local-variable-values
+   (quote ((haskell-indent-spaces . 4)
+           (haskell-indent-spaces . 2)
+           (hindent-style . "chris-done")
+           (hindent-style . "gibiansky")
+           (hindent-style . "johan-tibell")
+           (haskell-process-type . cabal-repl)
+           (shm-lambda-indent-style . leftmost-parent)))))

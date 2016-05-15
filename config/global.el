@@ -95,13 +95,6 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-;; Auto-loads
-
-(add-to-list 'auto-mode-alist (cons "\\.hs\\'" 'haskell-mode))
-(add-to-list 'auto-mode-alist (cons "\\.cabal\\'" 'haskell-cabal-mode))
-(add-to-list 'auto-mode-alist '("\\.hcr\\'" . haskell-core-mode))
-
-
 ;; Environment settings
 
 (set-language-environment "UTF-8")
