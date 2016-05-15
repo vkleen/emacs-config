@@ -26,12 +26,15 @@
     "auctex-latexmk"
     "visual-fill-column"
     "cdlatex"
-    "magit/lisp")
+    "magit/lisp"
+    "async"
+    "helm")
   "Custom load paths that don't follow the normal
   package-name/module-name.el format.")
 
 (defvar configs
   '("global"
+    "helm"
     "haskell"
     "notmuch"
     "latex"

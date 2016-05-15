@@ -47,3 +47,15 @@
 [submodule "packages/idris-mode"]
 	path = packages/idris-mode
 	url = https://github.com/idris-hackers/idris-mode
+[submodule "packages/prop-menu"]
+	path = packages/prop-menu
+	url = https://github.com/david-christiansen/prop-menu-el
+[submodule "packages/helm"]
+	path = packages/helm
+	url = https://github.com/emacs-helm/helm.git
+[submodule "packages/async"]
+	path = packages/async
+	url = https://github.com/jwiegley/emacs-async.git
+[submodule "packages/imenu-anywhere"]
+	path = packages/imenu-anywhere
+	url = https://github.com/vspinu/imenu-anywhere

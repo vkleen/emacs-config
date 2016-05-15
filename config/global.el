@@ -24,28 +24,8 @@
   (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
   (setq backup-directory-alist (list (cons "." backup-dir))))
 
-(defun comment-dwim-line (&optional arg)
-  "Do-what-I-mean commenting the current line."
-  (interactive "*P")
-  (comment-normalize-vars)
-  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
-      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    (comment-dwim arg)))
-
 
 ;; Global keybindings
-
-(global-set-key (kbd "M-;") 'comment-dwim-line)
-(global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "C-z") 'ido-switch-buffer)
-
-(global-set-key (kbd "C-w") 'clipboard-kill-region)
-(global-set-key (kbd "M-w") 'clipboard-kill-ring-save)
-(global-set-key (kbd "C-y") 'clipboard-yank)
-
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c M-x") 'execute-extended-command)
 
 (global-set-key (kbd "<f4>") 'writeroom-mode)
 
@@ -73,10 +53,6 @@
 ;; Enable cool modes
 (ido-mode 1)
 (global-font-lock-mode 1)
-
-(require 'dired-x)
-(setq-default dired-omit-files-p t)
-(setq dired-omit-files "\\.dyn_hi$\\|\\.dyn_o$\\|\\.hi$\\|\\.o$")
 
 
 ;; Enable cool defaults
