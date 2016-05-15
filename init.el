@@ -38,7 +38,8 @@
     "org"
     "cdlatex"
     "yasnippet"
-    "magit")
+    "magit"
+    "agda")
   "Configuration files that follow the config/foo.el file path
   format.")
 
