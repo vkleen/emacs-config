@@ -97,3 +97,4 @@
 
 (smex-initialize)
 (load "haskell-mode-autoloads.el")
+(require 'nix-mode)
