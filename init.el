@@ -47,7 +47,8 @@
     "magit"
     "agda"
     "idris"
-    "imenu-anywhere")
+    "imenu-anywhere"
+    "eshell")
   "Configuration files that follow the config/foo.el file path
   format.")
 
