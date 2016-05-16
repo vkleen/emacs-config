@@ -88,6 +88,8 @@
 (custom-set-variables
  '(writeroom-fullscreen-effect (quote maximized)))
 
+(setq x-select-enable-primary t)
+
 
 ;; Hooks
 
