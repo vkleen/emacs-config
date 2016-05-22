@@ -27,7 +27,25 @@
 
 ;; Global keybindings
 
+(defun backward-downcase-word ()
+  (interactive)
+  (downcase-word -1))
+
+(defun backward-upcase-word ()
+  (interactive)
+  (upcase-word -1))
+
+(defun backward-capitalize-word ()
+  (interactive)
+  (capitalize-word -1))
+
 (global-set-key (kbd "<f4>") 'writeroom-mode)
+(global-set-key (kbd "M-D") 'backward-kill-word)
+(global-set-key (kbd "M-L") 'backward-downcase-word)
+(global-set-key (kbd "M-C") 'backward-capitalize-word)
+(global-set-key (kbd "M-U") 'backward-upcase-word)
+
+(global-set-key (kbd "<f20>") 'backward-capitalize-word)
 
 
 ;; Disable default settings
@@ -48,6 +66,8 @@
 (put 'erase-buffer 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+(setq sentence-end-double-space nil)
 
 
 ;; Enable cool modes
