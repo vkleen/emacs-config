@@ -18,7 +18,8 @@
     yasnippet
     prop-menu
     idris-mode
-    imenu-anywhere)
+    imenu-anywhere
+    helm-idris)
   "Packages whose location follows the
   packages/package-name/package-name.el format.")
 
