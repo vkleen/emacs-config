@@ -13,3 +13,7 @@
  '(agda2-highlight-primitive-face ((t (:foreground "deep sky blue"))))
  '(agda2-highlight-primitive-type-face ((t (:foreground "deep sky blue"))))
  '(agda2-highlight-record-face ((t (:foreground "deep sky blue")))))
+
+(custom-set-variables
+ '(safe-local-variable-values
+   (quote (agda2-program-args "-i." "-i/home/vkleen/src/agda/stdlib/src"))))
