@@ -1,112 +1,42 @@
-
-;; Standard libraries needed
+(setq load-prefer-newer t
+      debug-on-error t
+      package-archives nil
+      gc-cons-threshold (* 50 1024 1024))
 
-(require 'cl-lib)
+(defconst user-emacs-directory
+  (file-name-directory (expand-file-name (or load-file-name (buffer-file-name))))
+  "My emacs config directory.")
 
-
-;; Packages and configs to load
+(defconst quelpa-src-directory
+  (file-name-as-directory (expand-file-name "modules/quelpa" user-emacs-directory))
+  "Where quelpa is stored in the system.")
 
-(setq package-enable-at-startup nil)
-(package-initialize)
+(defconst user-cache-directory
+  (file-name-as-directory (expand-file-name ".cache" user-emacs-directory))
+  "My emacs storage area for persistent files.")
+(unless (file-exists-p user-cache-directory)
+  (make-directory user-cache-directory))
 
-(defvar packages
-  '(haskell-mode
-    smex
-    dash
-    writeroom-mode
-    dired+
-    yasnippet
-    prop-menu
-    idris-mode
-    imenu-anywhere
-    helm-idris)
-  "Packages whose location follows the
-  packages/package-name/package-name.el format.")
+(setenv "GIT_SSL_CAINFO" "/etc/ssl/certs/ca-certificates.crt")
+(setq quelpa-ci-dir quelpa-src-directory)
+(if (require 'quelpa nil t)
+    (quelpa '(quelpa :repo quelpa-src-directory :fetcher git) :upgrade t)
+  (load (expand-file-name "bootstrap.el" quelpa-src-directory)))
 
-(defvar custom-load-paths
-  '("structured-haskell-mode/elisp"
-    "hindent/elisp"
-    "git-modes"
-    "auctex-latexmk"
-    "visual-fill-column"
-    "cdlatex"
-    "magit/lisp"
-    "async"
-    "helm")
-  "Custom load paths that don't follow the normal
-  package-name/module-name.el format.")
+(setq quelpa-dir (expand-file-name "quelpa" user-cache-directory)
+      quelpa-melpa-repo-url (expand-file-name "modules/melpa"
+                                              user-emacs-directory))
 
-(defvar configs
-  '("global"
-    "helm"
-    "haskell"
-    "notmuch"
-    "latex"
-    "org"
-    "cdlatex"
-    "yasnippet"
-    "magit"
-    "agda"
-    "idris"
-    "imenu-anywhere"
-    "eshell")
-  "Configuration files that follow the config/foo.el file path
-  format.")
+(quelpa 'f)
+(require 'f)
 
-(defvar themes
-  '("solarized-emacs")
-  "Theme directories that follow the themes/theme-name file path format.")
+(defconst user-layer-directory
+  (f-join user-emacs-directory "layers")
+  "My spacemacs-inspired layers.")
 
-
-;; Load packages
+(setq my-show-debug-messages t)
+(add-to-list 'load-path (expand-file-name "core" user-emacs-directory))
+(require 'core-init)
+(my/Init)
 
-(cl-loop for location in custom-load-paths
-         do (add-to-list 'load-path
-                         (concat (file-name-directory (or load-file-name
-                                                          (buffer-file-name)))
-                                 "packages/"
-                                 location)))
-
-(cl-loop for name in packages
-         do (progn (unless (fboundp name)
-                     (add-to-list 'load-path
-                                  (concat (file-name-directory (or load-file-name
-                                                                   (buffer-file-name)))
-                                          "packages/"
-                                          (symbol-name name)))
-                     (require name))))
-
-(require 'shm)
-(require 'hindent)
-(require 'shm-case-split)
-(require 'shm-reformat)
-
-
-;; Theme paths
-
-(cl-loop for location in themes
-         do (progn (add-to-list 'custom-theme-load-path
-                                (concat (file-name-directory (or load-file-name
-                                                                 (buffer-file-name)))
-                                        "themes/"
-                                        location))
-                   (add-to-list 'load-path
-                                (concat (file-name-directory (or load-file-name
-                                                                 (buffer-file-name)))
-                                        "themes/"
-                                        location))))
-
-
-;; Emacs configurations
-
-(cl-loop for name in configs
-         do (load (concat (file-name-directory load-file-name)
-                          "config/"
-                          name ".el")))
-
-
-;; Mode initializations
-
-(smex-initialize)
-(load "haskell-mode-autoloads.el")
-(require 'nix-mode)
+(my/debug-print-discovered-layers)

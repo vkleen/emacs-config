@@ -1,0 +1,6 @@
+[submodule "modules/quelpa"]
+	path = modules/quelpa
+	url = https://github.com/quelpa/quelpa
+[submodule "modules/melpa"]
+	path = modules/melpa
+	url = https://github.com/melpa/melpa
