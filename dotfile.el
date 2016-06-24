@@ -1,7 +1,9 @@
-(require 'f)
-
 (defun dotfile/init ()
   "Initialization function."
-  (my/discover-layers (f-join user-emacs-directory "private-layers"))
   (my/message "Hello World!")
   )
+
+(defun dotfile/layers ()
+  "Load layers and do miscellaneous configuration."
+  (my/load-layer 'themes/solarized)
+  (my/load-theme 'solarized-dark))

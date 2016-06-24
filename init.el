@@ -4,7 +4,7 @@
       gc-cons-threshold (* 50 1024 1024))
 
 (defconst user-emacs-directory
-  (file-name-directory (expand-file-name (or load-file-name (buffer-file-name))))
+  (file-name-directory (or load-file-name buffer-file-name))
   "My emacs config directory.")
 
 (defconst quelpa-src-directory
@@ -17,10 +17,12 @@
 (unless (file-exists-p user-cache-directory)
   (make-directory user-cache-directory))
 
+(setq package-directory-list (list (expand-file-name "elpa" user-emacs-directory)))
+(package-initialize)
+
 (setenv "GIT_SSL_CAINFO" "/etc/ssl/certs/ca-certificates.crt")
 (setq quelpa-ci-dir quelpa-src-directory)
-(if (require 'quelpa nil t)
-    (quelpa '(quelpa :repo quelpa-src-directory :fetcher git) :upgrade t)
+(unless (require 'quelpa nil t)
   (load (expand-file-name "bootstrap.el" quelpa-src-directory)))
 
 (setq quelpa-dir (expand-file-name "quelpa" user-cache-directory)
@@ -37,6 +39,5 @@
 (setq my-show-debug-messages t)
 (add-to-list 'load-path (expand-file-name "core" user-emacs-directory))
 (require 'core-init)
-(my/Init)
-
+(my/init)
 (my/debug-print-discovered-layers)

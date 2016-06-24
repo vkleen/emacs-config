@@ -11,5 +11,3 @@
 (defmacro my|hide-lighter (mode)
   "Diminish MODE name in mode line to LIGHTER."
   `(eval-after-load 'diminish '(diminish ',mode)))
-
-(provide 'core-diminish)

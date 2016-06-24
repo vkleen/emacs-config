@@ -1,0 +1,2 @@
+(quelpa 'diminish)
+(require 'diminish)

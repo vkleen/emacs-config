@@ -1,5 +1,3 @@
-(require 'core-keybindings)
-
 (defvar my-show-debug-messages nil
   "Whether to show debug messages.")
 
@@ -61,45 +59,6 @@ If there are multiple properties with the same keyword, only the first property 
       (push (pop tail) result))
     (nreverse result)))
 
-(defun my//create-key-binding-form (props func)
-  "Helper which returns a form to bind `func' to a key according to `props'.
-
-Supported properties:
-
-`:evil-leader STRING'
-  One or several key sequence strings to be set with `my/set-leader-keys'.
-
-`:evil-leader-for-mode CONS CELL'
-  One or several cons cells (MODE . KEY) where MODE is a
-  major-mode symbol and KEY is a key sequence string to be set
-  with `my/set-leader-keys-for-major-Mode'.
-
-`:global-key STRING'
-  One or several key sequence strings to be set with `global-set-key'.
-
-`:define-key CONS CELL'
-
-  One or several cons cells (MAP . KEY) where MAP is a mode map
-  and KEY is a key sequence string to be set with `define-key'."
-  (let ((evil-leader (my/mplist-get props :evil-leader))
-        (evil-leader-for-mode (my/mplist-get props :evil-leader-for-mode))
-        (global-key (my/mplist-get props :global-key))
-        (def-key (my/mplist-get props :define-key)))
-    (append
-     (when evil-leader
-       `((dolist (key ',evil-leader)
-           (my/set-leader-keys key ',func))))
-     (when evil-leader-for-mode
-       `((dolist (val ',evil-leader-for-mode)
-           (my/set-leader-keys-for-major-mode
-            (car val) (cdr val) ',func))))
-     (when global-key
-       `((dolist (key ',global-key)
-           (global-set-key (kbd key) ',func))))
-     (when def-key
-       `((dolist (val ',def-key)
-           (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
-
 (defun my/append-to-list (list-var elements)
   "Append ELEMENTS to the end of LIST-VAR, modifying the list
 pointed to by LIST-VAR."
@@ -108,5 +67,12 @@ pointed to by LIST-VAR."
         (setcdr (last list) elements)
       (set list-var elements)))
   (symbol-value list-var))
+
+(defun my/defer-until-after-config (func)
+  "Call FUNC if `my-post-config-hook' has been called. Otherwise,
+defer call using `my-post-config-hook'."
+  (if my-post-config-hook-run
+      (funcall func)
+    (add-hook 'my-post-config-hook func)))
 
 (provide 'core-funcs)
