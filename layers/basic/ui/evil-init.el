@@ -201,6 +201,111 @@ SEQ. Example: (evil-map visual \"<\" \"<gv\")"
   (add-hook 'ediff-quit-hook #'winner-undo)
 
   (evilified-state-evilify-map process-menu-mode-map :mode process-menu-mode)
-  (evilified-state-evilify-map tar-mode-map :mode tar-mode))
+  (evilified-state-evilify-map tar-mode-map :mode tar-mode)
+
+  (global-anzu-mode t)
+  (my|hide-lighter anzu-mode)
+  (setq anzu-search-threshold 1000
+        anzu-cons-mode-line-p nil)
+  (setq anzu-mode-line-update-function 'my/anzu-update-mode-line)
+
+  (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+
+  (evil-exchange-install)
+
+  (setq iedit-current-symbol-default t
+        iedit-only-at-symbol-boundaries t
+        iedit-toggle-key-default nil)
+  (my/set-leader-keys "se" 'evil-iedit-state/iedit-mode)
+  (define-key evil-iedit-state-map (kbd dotfile-leader-key) my-default-map)
+
+  (evil-indent-plus-default-bindings)
+
+  (setq evil-lisp-state-global t)
+  (my/set-leader-keys "k" evil-lisp-state-map)
+
+  (setq evil-mc-mode-line `(:eval (when (> (evil-mc-get-cursor-count) 1)
+                                    (format ,(propertize " %s:%d" 'face 'cursor)
+                                            evil-mc-mode-line-prefix
+                                            (evil-mc-get-cursor-count)))))
+
+  (define-key evil-normal-state-map "gc" 'evilnc-comment-operator)
+  (define-key evil-normal-state-map "gy" 'my/copy-and-comment-lines)
+
+  (my/set-leader-keys
+   ";"  'evilnc-comment-operator
+   "cl" 'my/comment-or-uncomment-lines
+   "cL" 'my/comment-or-uncomment-lines-inverse
+   "cp" 'my/comment-or-uncomment-paragraphs
+   "cP" 'my/comment-or-uncomment-paragraphs-inverse
+   "ct" 'my/quick-comment-or-uncomment-to-the-line
+   "cT" 'my/quick-comment-or-uncomment-to-the-line-inverse
+   "cy" 'my/copy-and-comment-lines
+   "cY" 'my/copy-and-comment-lines-inverse)
+
+  (my|define-transient-state evil-numbers
+        :title "Evil Numbers Transient State"
+        :doc "\n[_+_/_=_] increase number [_-_] decrease"
+        :bindings
+        ("+" evil-numbers/inc-at-pt)
+        ("=" evil-numbers/inc-at-pt)
+        ("-" evil-numbers/dec-at-pt))
+  (my/set-leader-keys
+   "n+" 'my/evil-numbers-transient-state/evil-numbers/inc-at-pt
+   "n=" 'my/evil-numbers-transient-state/evil-numbers/inc-at-pt
+   "n-" 'my/evil-numbers-transient-state/evil-numbers/dec-at-pt)
+
+  (global-evil-search-highlight-persist)
+  (my/set-leader-keys "sc" 'my/evil-search-clear-highlight)
+  (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
+  (evil-ex-define-cmd "nohlsearch" 'evil-search-highlight-persist-remove-all)
+  (my/adaptive-evil-highlight-persist-face)
+
+  (global-evil-surround-mode 1)
+  (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+  (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
+
+  (my|add-toggle evil-visual-mark-mode
+                 :mode evil-visual-mark-mode
+                 :documentation "Enable evil visual mark mode."
+                 :evil-leader "t`")
+
+  (global-vi-tilde-fringe-mode)
+  (my|add-toggle vi-tilde-fringe
+                 :mode global-vi-tilde-fringe-mode
+                 :documentation "Globally display a ~ on empty lines in the fringe."
+                 :evil-leader "T~")
+  (add-hook 'after-change-major-mode-hook
+            'my/disable-vi-tilde-fringe-read-only)
+  (my|hide-lighter vi-tilde-fringe-mode)
+
+  (define-key evil-normal-state-map (kbd "[ SPC")
+    'evil-unimpaired/insert-space-above)
+  (define-key evil-normal-state-map (kbd "] SPC")
+    'evil-unimpaired/insert-space-below)
+  (define-key evil-normal-state-map (kbd "[ e") 'move-text-up)
+  (define-key evil-normal-state-map (kbd "] e") 'move-text-down)
+  (define-key evil-visual-state-map (kbd "[ e") ":move'<--1")
+  (define-key evil-visual-state-map (kbd "] e") ":move'>+1")
+  ;; (define-key evil-visual-state-map (kbd "[ e") 'move-text-up)
+  ;; (define-key evil-visual-state-map (kbd "] e") 'move-text-down)
+  (define-key evil-normal-state-map (kbd "[ b") 'my/previous-useful-buffer)
+  (define-key evil-normal-state-map (kbd "] b") 'my/next-useful-buffer)
+  (define-key evil-normal-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
+  (define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
+  (define-key evil-normal-state-map (kbd "] l") 'my/next-error)
+  (define-key evil-normal-state-map (kbd "[ l") 'my/previous-error)
+  (define-key evil-normal-state-map (kbd "] q") 'my/next-error)
+  (define-key evil-normal-state-map (kbd "[ q") 'my/previous-error)
+  (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
+  (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
+  (define-key evil-normal-state-map (kbd "[ w") 'previous-multiframe-window)
+  (define-key evil-normal-state-map (kbd "] w") 'next-multiframe-window)
+  ;; select pasted text
+  (define-key evil-normal-state-map (kbd "g p") (kbd "` [ v ` ]"))
+  ;; paste above or below with newline
+  (define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
+  (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below))
 
 (provide 'my//basic/ui/evil-initialization)

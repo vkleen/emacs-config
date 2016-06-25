@@ -1,16 +1,79 @@
-(my|use-package 'async)
+(--each '(async
+          iedit
 
-(my|use-package 'evil)
-(my|use-package 'evil-surround)
-(my|use-package 'evil-escape)
-(my|use-package 'evil-visualstar)
+          evil
+          evil-surround
+          evil-escape
+          evil-visualstar
+          evil-anzu
+          evil-args
+          evil-exchange
+          evil-iedit-state
+          evil-indent-plus
+          evil-lisp-state
+          evil-mc
+          evil-nerd-commenter
+          evil-matchit
+          evil-numbers
+          evil-search-highlight-persist
+          evil-surround
+          evil-visual-mark-mode
 
-(my|use-package 'ediff)
+          ediff
+          evil-ediff
 
-(my|use-package 'uniquify)
+          uniquify
+          page-break-lines
+          tar-mode
+          winner
+          linum-relative
+          vi-tilde-fringe
 
-(my|use-package 'page-break-lines)
+          ace-link
+          ace-window
+          buffer-move
+          info+
+          open-junk-file
+          restart-emacs
+          window-numbering
 
-(my|use-package 'tar-mode)
+          fill-column-indicator
+          golden-ratio
+          hl-todo
+          neotree
+          popup
+          popwin
+          smooth-scrolling
+          zoom-frm
 
-(my|use-package 'winner)
+          eyebrowse
+          persp-mode
+
+          spaceline
+
+          undo-tree
+
+          ace-jump-helm-line
+          auto-highlight-symbol
+          bookmark
+          helm
+          helm-ag
+          helm-descbinds
+          helm-flx
+          helm-make
+          helm-mode-manager
+          projectile
+          helm-projectile
+          helm-swoop
+          helm-themes
+
+          adaptive-wrap
+          auto-highlight-symbol
+          column-enforce-mode
+          highlight-indentation
+          highlight-numbers
+          highlight-parentheses
+          indent-guide
+          raindbow-delimiters
+          volatile-highlights)
+  (my|use-package it))

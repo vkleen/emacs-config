@@ -40,4 +40,3 @@
 (add-to-list 'load-path (expand-file-name "core" user-emacs-directory))
 (require 'core-init)
 (my/init)
-(my/debug-print-discovered-layers)

@@ -69,7 +69,7 @@ found while searching PATH."
 ;; (defmacro my|use-package (pkg &rest body)
 ;;   "Wrap use-package to always use quelpa."
 ;;   (declare (indent 1))
-;;   `(use-package pkg :quelpa ,@body))
+;;   `(use-package pkg :quelpa :defer nil ,@body))
 
 (defun my|use-package (pkg)
   "Build and load PKG"
@@ -80,15 +80,16 @@ found while searching PATH."
   "Load the files of LAYER."
   (my/debug-message "Trying to load layer `%s'" layer)
   (let ((layer-props (ht-get my-layer-props layer))
-        (err))
+        (file))
     (unless layer-props (my/error "No layer `%s' known." layer))
     (if (not (plist-get layer-props :loaded))
         (condition-case-unless-debug err
             (progn (dolist (file-type my-layer-file-types)
-                     (-if-let (file (plist-get layer-props (car file-type)))
-                         (let* ((layer-directory (f-dirname file))
-                                (load-path (append `(,layer-directory) load-path)))
-                           (load file))))
+                     (progn (setq file (plist-get layer-props (car file-type)))
+                            (if file
+                                (let* ((layer-directory (f-dirname file))
+                                       (load-path (append `(,layer-directory) load-path)))
+                                  (load file)))))
                    (plist-put layer-props :loaded t))
           (error
            (my/message

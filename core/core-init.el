@@ -29,6 +29,7 @@
   (quelpa 'use-package)
   (quelpa 'quelpa-use-package)
   (require 'use-package)
+  (require 'quelpa-use-package)
 
   (dotfile/load-file)
   (dotfile|call-func dotfile/init "Calling dotfile init...")

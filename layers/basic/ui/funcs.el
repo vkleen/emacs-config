@@ -645,4 +645,411 @@ otherwise it is scaled down."
   (interactive)
   (my/scale-up-or-down-font-size 0))
 
+(defun my/anzu-update-mode-line (here total)
+  "Custom update function which does not propertize the status."
+  (when anzu--state
+    (let ((status (cl-case anzu--state
+                    (search (format "(%s/%d%s)"
+                                    (anzu--format-here-position here total)
+                                    total (if anzu--overflow-p "+" "")))
+                    (replace-query (format "(%d replace)" total))
+                    (replace (format "(%d/%d)" here total)))))
+      status)))
+
+(defun my/comment-or-uncomment-lines-inverse (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-comment-or-uncomment-lines arg)))
+
+(defun my/comment-or-uncomment-lines (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-comment-or-uncomment-lines arg)))
+
+(defun my/copy-and-comment-lines-inverse (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-copy-and-comment-lines arg)))
+
+(defun my/copy-and-comment-lines (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-copy-and-comment-lines arg)))
+
+(defun my/quick-comment-or-uncomment-to-the-line-inverse
+    (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-comment-or-uncomment-to-the-line arg)))
+
+(defun my/quick-comment-or-uncomment-to-the-line (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-comment-or-uncomment-to-the-line arg)))
+
+(defun my/comment-or-uncomment-paragraphs-inverse (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-comment-or-uncomment-paragraphs arg)))
+
+(defun my/comment-or-uncomment-paragraphs (&optional arg)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-comment-or-uncomment-paragraphs arg)))
+
+(defun my/evil-search-clear-highlight ()
+  "Clear evil-search or evil-ex-search persistent highlights."
+  (interactive)
+  (case evil-search-module
+    ('isearch (evil-search-highlight-persist-remove-all))
+    ('evil-search (evil-ex-nohighlight))))
+
+(defun my/adaptive-evil-highlight-persist-face ()
+  (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
+                      :inherit 'region
+                      :background nil
+                      :foreground nil))
+
+(defun my/disable-vi-tilde-fringe ()
+  "Disable `vi-tilde-fringe' in the current buffer."
+  (vi-tilde-fringe-mode -1))
+
+(defun my/disable-vi-tilde-fringe-read-only ()
+  "Disable `vi-tilde-fringe' in the current buffer if it is read only."
+  (when buffer-read-only
+    (my/disable-vi-tilde-fringe)))
+
+(defun my/open-junk-file (&optional arg)
+  "Open junk file Open junk file using helm or ivy depending
+on whether the `ivy' layer is used or not, with
+`prefix-arg' search in junk files"
+  (interactive "P")
+  (let* ((fname (format-time-string open-junk-file-format (current-time)))
+         (rel-fname (file-name-nondirectory fname))
+         (junk-dir (file-name-directory fname))
+         (default-directory junk-dir))
+    (let (helm-ff-newfile-prompt-p)
+    (if arg
+        (my/helm-files-smart-do-search)
+      (helm-find-files-1 fname)))))
+
+(defun my/restart-emacs (&optional args)
+  "Restart emacs."
+  (interactive)
+  (setq my-really-kill-emacs t)
+  (restart-emacs args))
+(defun my/restart-emacs-resume-layouts (&optional args)
+  "Restart emacs and resume layouts."
+  (interactive)
+  (my/restart-emacs (cons "--resume-layouts" args)))
+(defun my/restart-emacs-debug-init (&optional args)
+  "Restart emacs and enable debug-init."
+  (interactive)
+  (my/restart-emacs (cons "--debug-init" args)))
+
+(defun my/no-golden-ratio-for-buffers (bufname)
+  "Disable golden-ratio if BUFNAME is the name of a visible buffer."
+  (and (get-buffer bufname) (get-buffer-window bufname 'visible)))
+
+(defun my/no-golden-ratio-guide-key ()
+  "Disable golden-ratio for guide-key popwin buffer."
+  (or (my/no-golden-ratio-for-buffers " *guide-key*")
+      (my/no-golden-ratio-for-buffers " *popwin-dummy*")))
+
+(defun my/neotree-expand-or-open ()
+  "Collapse a neotree node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (progn
+            (neo-buffer--set-expand node t)
+            (neo-buffer--refresh t)
+            (when neo-auto-indent-point
+              (next-line)
+              (neo-point-auto-indent)))
+        (call-interactively 'neotree-enter)))))
+
+(defun my/neotree-collapse ()
+  "Collapse a neotree node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (when (file-directory-p node)
+        (neo-buffer--set-expand node nil)
+        (neo-buffer--refresh t))
+      (when neo-auto-indent-point
+        (neo-point-auto-indent)))))
+
+(defun my/neotree-collapse-or-up ()
+  "Collapse an expanded directory node or go to the parent node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (if (neo-buffer--expanded-node-p node)
+              (my/neotree-collapse)
+            (neotree-select-up-node))
+        (neotree-select-up-node)))))
+
+(defun neotree-find-project-root ()
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (neotree-hide)
+    (let ((origin-buffer-file-name (buffer-file-name)))
+      (neotree-find (projectile-project-root))
+      (neotree-find origin-buffer-file-name))))
+
+(defun my//neotree-maybe-attach-window ()
+  (when (get-buffer-window (neo-global--get-buffer))
+    (neo-global--attach)))
+
+(defun my/enable-smooth-scrolling ()
+  "Enable smooth scrolling."
+  (interactive)
+  (setq scroll-conservatively 101))
+
+(defun my/disable-smooth-scrolling ()
+  "Enable smooth scrolling."
+  (interactive)
+  (setq scroll-conservatively 0))
+
+
+(defun evil-unimpaired//find-relative-filename (offset)
+  (when buffer-file-name
+    (let* ((directory (f-dirname buffer-file-name))
+           (files (f--files directory (not (s-matches? "^\\.?#" it))))
+           (index (+ (-elem-index buffer-file-name files) offset))
+           (file (and (>= index 0) (nth index files))))
+      (when file
+        (f-expand file directory)))))
+
+(defun evil-unimpaired/previous-file ()
+  (interactive)
+  (-if-let (filename (evil-unimpaired//find-relative-filename -1))
+      (find-file filename)
+    (user-error "No previous file")))
+
+(defun evil-unimpaired/next-file ()
+  (interactive)
+  (-if-let (filename (evil-unimpaired//find-relative-filename 1))
+      (find-file filename)
+    (user-error "No next file")))
+
+(defun evil-unimpaired/paste-above ()
+  (interactive)
+  (evil-insert-newline-above)
+  (evil-paste-after 1))
+
+(defun evil-unimpaired/paste-below ()
+  (interactive)
+  (evil-insert-newline-below)
+  (evil-paste-after 1))
+
+(defun evil-unimpaired/insert-space-above ()
+  (interactive)
+  (save-excursion
+    (evil-insert-newline-above)))
+
+(defun evil-unimpaired/insert-space-below ()
+  (interactive)
+  (save-excursion
+    (evil-insert-newline-below)))
+
+(defun evil-unimpaired/next-frame ()
+  (interactive)
+  (raise-frame (next-frame)))
+
+(defun evil-unimpaired/previous-frame ()
+  (interactive)
+  (raise-frame (previous-frame)))
+
+(defun my//zoom-frm-powerline-reset ()
+  (when (fboundp 'powerline-reset)
+    (setq-default powerline-height (frame-char-height))
+    (powerline-reset)))
+
+(defun my//zoom-frm-do (arg)
+  "Perform a zoom action depending on ARG value."
+  (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
+                           ((< arg 0) 'zoom-frm-out)
+                           ((> arg 0) 'zoom-frm-in)))
+        (fm (cdr (assoc 'fullscreen (frame-parameters))))
+        (fwp (* (frame-char-width) (frame-width)))
+        (fhp (* (frame-char-height) (frame-height))))
+    (when (equal fm 'maximized)
+      (toggle-frame-maximized))
+    (funcall zoom-action)
+    (set-frame-size nil fwp fhp t)
+    (when (equal fm 'maximized)
+      (toggle-frame-maximized))))
+
+(defun my/zoom-frm-in ()
+  "zoom in frame, but keep the same pixel size"
+  (interactive)
+  (my//zoom-frm-do 1)
+  (my//zoom-frm-powerline-reset))
+
+(defun my/zoom-frm-out ()
+  "zoom out frame, but keep the same pixel size"
+  (interactive)
+  (my//zoom-frm-do -1)
+  (my//zoom-frm-powerline-reset))
+
+(defun my/zoom-frm-unzoom ()
+  "Unzoom current frame, keeping the same pixel size"
+  (interactive)
+  (my//zoom-frm-do 0)
+  (my//zoom-frm-powerline-reset))
+
+(defvar-local my-last-ahs-highlight-p nil
+  "Info on the last searched and highlighted symbol.")
+(defvar-local my--ahs-searching-forward t)
+
+(defun my/goto-last-searched-ahs-symbol ()
+  "Go to the last known occurrence of the last symbol searched with
+`auto-highlight-symbol'."
+  (interactive)
+  (if my-last-ahs-highlight-p
+      (progn (goto-char (nth 1 my-last-ahs-highlight-p))
+             (my/ahs-highlight-now-wrapper)
+             (my/symbol-highlight-transient-state/body))
+    (message "No symbol has been searched for now.")))
+
+(defun my/integrate-evil-search (forward)
+  ;; isearch-string is last searched item.  Next time
+  ;; "n" is hit we will use this.
+  (setq isearch-string
+        (concat "\\<" (evil-find-thing forward 'symbol) "\\>")
+        isearch-regexp
+        (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+  ;; Next time "n" is hit, go the correct direction.
+  (setq isearch-forward forward)
+  ;; ahs does a case sensitive search.  We could set
+  ;; this, but it would break the user's current
+  ;; sensitivity settings.  We could save the setting,
+  ;; then next time the user starts a search we could
+  ;; restore the setting.
+  ;;(setq case-fold-search nil)
+  ;; Place the search term into the search rings.
+  (isearch-update-ring isearch-string t)
+  (evil-push-search-history isearch-string forward)
+  ;; Use this search term for empty pattern "%s//replacement/"
+  ;; Append case sensitivity
+  (setq evil-ex-last-was-search nil
+        evil-ex-substitute-pattern `(,(concat isearch-string "\\C")
+                                     nil (0 0))))
+
+(defun my/ensure-ahs-enabled-locally ()
+  "Ensures ahs is enabled for the local buffer."
+  (unless
+      (bound-and-true-p ahs-mode-line)
+    (auto-highlight-symbol-mode)
+    ))
+
+(defun my/ahs-highlight-now-wrapper ()
+  "Safe wrapper for ahs-highlight-now"
+  (eval '(progn
+           (my/ensure-ahs-enabled-locally)
+           (ahs-highlight-now)) nil))
+
+(defun my/enter-ahs-forward ()
+  "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
+  (interactive)
+  (setq my--ahs-searching-forward t)
+  (my/quick-ahs-forward))
+
+(defun my/enter-ahs-backward ()
+  "Go to the previous occurrence of symbol under point with
+`auto-highlight-symbol'"
+  (interactive)
+  (setq my--ahs-searching-forward nil)
+  (my/quick-ahs-forward))
+
+(defun my/quick-ahs-forward ()
+  "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
+  (interactive)
+  (my//quick-ahs-move t))
+
+(defun my/quick-ahs-backward ()
+  "Go to the previous occurrence of symbol under point with
+`auto-highlight-symbol'"
+  (interactive)
+  (my//quick-ahs-move nil))
+
+(defun my//quick-ahs-move (forward)
+  "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
+
+  (if (eq forward my--ahs-searching-forward)
+      (progn
+        (my/integrate-evil-search t)
+        (my/ahs-highlight-now-wrapper)
+        (evil-set-jump)
+        (my/symbol-highlight-transient-state/body)
+        (ahs-forward))
+    (progn
+      (my/integrate-evil-search nil)
+      (my/ahs-highlight-now-wrapper)
+      (evil-set-jump)
+      (my/symbol-highlight-transient-state/body)
+      (ahs-backward))))
+
+(defun my/symbol-highlight ()
+  "Highlight the symbol under point with `auto-highlight-symbol'."
+  (interactive)
+  (my/ahs-highlight-now-wrapper)
+  (setq my-last-ahs-highlight-p (ahs-highlight-p))
+  (my/symbol-highlight-transient-state/body)
+  (my/integrate-evil-search nil))
+
+(defun my//ahs-ms-on-exit ()
+  ;; Restore user search direction state as ahs has exitted in a state
+  ;; good for <C-s>, but not for 'n' and 'N'"
+  (setq isearch-forward my--ahs-searching-forward))
+
+(defun my/symbol-highlight-reset-range ()
+  "Reset the range for `auto-highlight-symbol'."
+  (interactive)
+  (ahs-change-range ahs-default-range))
+
+      (defun symbol-highlight-doc ()
+        (let* ((i 0)
+               (overlay-count (length ahs-overlay-list))
+               (overlay (format "%s" (nth i ahs-overlay-list)))
+               (current-overlay (format "%s" ahs-current-overlay))
+               (st (ahs-stat))
+               (plighter (ahs-current-plugin-prop 'lighter))
+               (plugin (format "%s"
+                               (cond ((string= plighter "HS")  "Display")
+                                     ((string= plighter "HSA") "Buffer")
+                                     ((string= plighter "HSD") "Function"))))
+               (face (cond ((string= plighter "HS")  ahs-plugin-defalt-face)
+                           ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
+                           ((string= plighter "HSD") ahs-plugin-bod-face))))
+          (while (not (string= overlay current-overlay))
+            (setq i (1+ i))
+            (setq overlay (format "%s" (nth i ahs-overlay-list))))
+          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
+            (concat
+             (propertize (format " %s " plugin) 'face face)
+             (propertize (format " %s%s " x/y hidden) 'face
+                         `(:foreground "#ffffff" :background "#000000"))))))
+
+(defun ahs-to-iedit ()
+  (interactive)
+  (evil-iedit-state/iedit-mode)
+  (iedit-restrict-region (ahs-current-plugin-prop 'start)
+                         (ahs-current-plugin-prop 'end)))
+;; transient state
+(defun my//symbol-highlight-ts-doc ()
+  (my//transient-state-make-doc
+   'symbol-highlight
+   (format my--symbol-highlight-transient-state-doc
+           (symbol-highlight-doc)
+           (make-string (length (symbol-highlight-doc)) 32))))
+
 (provide 'my//basic/ui/funcs)

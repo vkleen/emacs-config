@@ -25,7 +25,7 @@ state properties."
 (defun my//transient-state-heads-name (name)
   "Return the name of the transient state heads variable which
 holds the key bindings."
-  (intern (format "spacemacs/%S-transient-state/heads" name)))
+  (intern (format "my/%S-transient-state/heads" name)))
 
 (defun my//transient-state-adjust-bindings (bindings to-remove to-add)
   (append (cl-remove-if
@@ -62,7 +62,7 @@ holds the key bindings."
                              `(nil
                                nil
                                :hint ,prop-hint
-                               :columns prop-columns
+                               :columns ,prop-columns
                                :foreign-keys ,prop-foreign-keys
                                :body-pre ,prop-entry-sexp
                                :before-exit ,prop-exit-sexp))))) ;HACK: maybe just splice in props-var?

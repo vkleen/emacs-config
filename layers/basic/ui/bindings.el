@@ -126,7 +126,7 @@ content.'")
     (define-key evil-visual-state-map "J" (concat ":m '>+1" (kbd "RET") "gv=gv"))
     (define-key evil-visual-state-map "K" (concat ":m '<-2" (kbd "RET") "gv=gv")))
 
-  (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
+  (evil-ex-define-cmd "enew" 'my/new-empty-buffer)
 
   (define-key evil-normal-state-map (kbd "K") 'my/evil-smart-doc-lookup)
   (define-key evil-normal-state-map (kbd "gd") 'my/evil-smart-goto-definition)
@@ -436,7 +436,7 @@ content.'")
  [_0_-_9_] window N      [_R_]^^   rotate      [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
  [_w_]^^   other window  ^^^^                  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
  [_o_]^^   other frame   ^^^^                  ^^                     ^^                           [_D_] close other
- ^^^^                    ^^^^                  ^^                     ^^                           ";[_g_] golden-ratio %`golden-ratio-mode"
+ ^^^^                    ^^^^                  ^^                     ^^                           [_g_] golden-ratio %`golden-ratio-mode"
                              :bindings
                              ("q" nil :exit t)
                              ("0" select-window-0)
@@ -457,7 +457,7 @@ content.'")
                              ("}" my/enlarge-window)
                              ("d" delete-window)
                              ("D" delete-other-windows)
-;                             ("g" my/basic/toggle/golden-ratio)
+                             ("g" my/basic/toggle/golden-ratio)
                              ("h" evil-window-left)
                              ("<left>" evil-window-left)
                              ("j" evil-window-down)
