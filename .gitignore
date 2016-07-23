@@ -2,3 +2,5 @@
 /quelpa/**
 /.cache/**
 /recentf
+/games
+*.elc

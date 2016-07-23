@@ -35,6 +35,7 @@
   (dotfile|call-func dotfile/init "Calling dotfile init...")
 
   (my/load-layer 'basic/ui)
+  (my/load-layer 'basic/editing)
 
   (dotfile|call-func dotfile/layers "Calling dotfile layers..."))
 

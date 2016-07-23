@@ -7,6 +7,9 @@
   (file-name-directory (or load-file-name buffer-file-name))
   "My emacs config directory.")
 
+(defconst emacs-nix-packages-directory
+  (getenv "NIXELPAPATH"))
+
 (defconst quelpa-src-directory
   (file-name-as-directory (expand-file-name "modules/quelpa" user-emacs-directory))
   "Where quelpa is stored in the system.")
@@ -17,8 +20,10 @@
 (unless (file-exists-p user-cache-directory)
   (make-directory user-cache-directory))
 
-(setq package-directory-list (list (expand-file-name "elpa" user-emacs-directory)))
-(package-initialize)
+(setq package-directory-list (list (expand-file-name "elpa" user-emacs-directory)
+                                   emacs-nix-packages-directory))
+(print package-directory-list)
+(package-initialize 'no-activate)
 
 (setenv "GIT_SSL_CAINFO" "/etc/ssl/certs/ca-certificates.crt")
 (setq quelpa-ci-dir quelpa-src-directory)

@@ -353,7 +353,7 @@ the current state and point position."
   (call-interactively
    (if (eq major-mode 'org-mode)
        'helm-org-in-buffer-headings
-     helm-semantic-or-imenu)))
+     'helm-semantic-or-imenu)))
 
 (defun my/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
@@ -471,7 +471,7 @@ the current state and point position."
 (defun my/rotate-windows (count)
   "Rotate your windows.
 Dedicated windows are left untouched. Giving a negative prefix
-argument takes the kindows rotate backwards."
+argument makes the windows rotate backwards."
   (interactive "p")
   (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
          (num-windows (length non-dedicated-windows))
@@ -1051,5 +1051,9 @@ on whether the `ivy' layer is used or not, with
    (format my--symbol-highlight-transient-state-doc
            (symbol-highlight-doc)
            (make-string (length (symbol-highlight-doc)) 32))))
+
+(defun my/backward-capitalize-word ()
+  (interactive)
+  (capitalize-word -1))
 
 (provide 'my//basic/ui/funcs)

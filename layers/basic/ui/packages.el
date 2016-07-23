@@ -67,13 +67,16 @@
           helm-swoop
           helm-themes
 
-          adaptive-wrap
           auto-highlight-symbol
           column-enforce-mode
           highlight-indentation
           highlight-numbers
           highlight-parentheses
           indent-guide
-          raindbow-delimiters
-          volatile-highlights)
+          rainbow-delimiters
+          volatile-highlights
+
+          pcre2el)
   (my|use-package it))
+
+(require 'adaptive-wrap "local/adaptive-wrap")

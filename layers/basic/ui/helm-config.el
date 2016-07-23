@@ -419,7 +419,7 @@ are used as default input."
   (interactive)
   (call-interactively
    (my//helm-do-search-find-tool "helm-buffers-do"
-                                 dotspacemacs-search-tools
+                                 dotfile-search-tools
                                  default-inputp)))
 
 (defun my/helm-buffers-smart-do-search-region-or-symbol ()
@@ -456,7 +456,7 @@ are used as default input."
   (let ((projectile-require-project-root nil))
     (call-interactively
      (my//helm-do-search-find-tool "helm-project-do"
-                                   dotspacemacs-search-tools
+                                   dotfile-search-tools
                                    default-inputp))))
 
 (defun my/helm-project-smart-do-search-region-or-symbol ()
@@ -571,7 +571,7 @@ Search for a search tool in the order provided by `dotfile-search-tools'."
                     my//helm-cleanup))
   (evil-ex-define-cmd "buffers" 'helm-buffers-list)
   (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
+  (global-set-key (kbd "C-x C-f") 'my/helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
 
   (my/set-leader-keys

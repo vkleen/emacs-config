@@ -494,6 +494,8 @@ content.'")
                              ("-" my/scale-down-font)
                              ("0" my/reset-font-size)
                              ("q" nil :exit t))
-  (my/set-leader-keys "zx" 'my/scale-font-transient-state/body))
+  (my/set-leader-keys "zx" 'my/scale-font-transient-state/body)
+
+  (global-set-key (kbd "<f20>") 'my/backward-capitalize-word))
 
 (provide 'my//basic/ui/bindings)

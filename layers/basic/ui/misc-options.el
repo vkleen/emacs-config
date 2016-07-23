@@ -456,6 +456,24 @@
   (vhl/install-extension 'undo-tree)
   (vhl/load-extension 'undo-tree)
   (volatile-highlights-mode)
-  (my|hide-lighter volatile-highlights-mode))
+  (my|hide-lighter volatile-highlights-mode)
+
+  (my/declare-prefix "xr" "regular expressions")
+  (my/declare-prefix "xre" "elisp")
+  (my/declare-prefix "xrp" "pcre")
+  (my/set-leader-keys "xr/"  'rxt-explain
+                      "xr'"  'rxt-convert-to-strings
+                      "xrt"  'rxt-toggle-elisp-rx
+                      "xrx"  'rxt-convert-to-rx
+                      "xrc"  'rxt-convert-syntax
+                      "xre/" 'rxt-explain-elisp
+                      "xre'" 'rxt-elisp-to-strings
+                      "xrep" 'rxt-elisp-to-pcre
+                      "xret" 'rxt-toggle-elisp-rx
+                      "xrex" 'rxt-elisp-to-rx
+                      "xrp/" 'rxt-explain-pcre
+                      "xrp'" 'rxt-pcre-to-strings
+                      "xrpe" 'rxt-pcre-to-elisp
+                      "xrpx" 'rxt-pcre-to-rx))
 
 (provide 'my//basic/ui/misc-options)
