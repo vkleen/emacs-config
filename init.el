@@ -1,5 +1,5 @@
 (setq load-prefer-newer t
-      debug-on-error t
+;      debug-on-error t
       package-archives nil
       gc-cons-threshold (* 50 1024 1024))
 

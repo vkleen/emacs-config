@@ -10,6 +10,8 @@
   (my/load-layer 'basic/company)
   (my/load-layer 'lang/idris)
   (my/load-layer 'lang/latex)
+  (my/load-layer 'lang/agda)
+  (my/load-layer 'lang/haskell)
 
   (my/basic/toggle/smartparens-globally-on)
   (smartparens-strict-mode 1)

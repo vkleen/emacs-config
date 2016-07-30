@@ -10,7 +10,7 @@
 (defvar dotfile-major-mode-leader-key ","
   "Major mode leader key is a shortcut key which the equivalent of pressing `<leader> m'.")
 
-(defvar dotfile-major-mode-emacs-leader-key "C-M-m"
+(defvar dotfile-major-mode-emacs-leader-key "M-,"
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
 (defvar my/prefix-titles nil

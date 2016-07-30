@@ -25,6 +25,7 @@
 
 (my|do-after-display-system-init
    (my/message "Setting the font...")
+   (unicode-fonts-setup)
    (unless (my/set-default-font dotfile-default-font)
      (my/warning
       "Cannot find any of the specified fonts (%s)! Font settings \

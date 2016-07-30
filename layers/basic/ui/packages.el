@@ -76,7 +76,9 @@
           rainbow-delimiters
           volatile-highlights
 
-          pcre2el)
+          pcre2el
+
+          unicode-fonts)
   (my|use-package it))
 
 (require 'adaptive-wrap "local/adaptive-wrap")
