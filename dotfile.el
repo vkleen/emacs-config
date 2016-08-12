@@ -15,5 +15,4 @@
 
   (my/basic/toggle/smartparens-globally-on)
   (smartparens-strict-mode 1)
-
-  (my/basic/toggle/auto-completion-on))
+  (require 'nix-mode))
