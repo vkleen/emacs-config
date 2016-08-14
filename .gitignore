@@ -5,3 +5,5 @@
 /games
 *.elc
 /var
+/irony
+/srecode-map.el

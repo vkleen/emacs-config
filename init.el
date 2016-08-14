@@ -1,5 +1,5 @@
 (setq load-prefer-newer t
-;      debug-on-error t
+;;      debug-on-error t
       package-archives nil
       gc-cons-threshold (* 50 1024 1024))
 
@@ -32,7 +32,9 @@
 
 (setq quelpa-dir (expand-file-name "quelpa" user-cache-directory)
       quelpa-melpa-repo-url (expand-file-name "modules/melpa"
-                                              user-emacs-directory))
+                                              user-emacs-directory)
+      quelpa-checkout-melpa-p nil
+      quelpa-update-melpa-p nil)
 
 (quelpa 'f)
 (require 'f)

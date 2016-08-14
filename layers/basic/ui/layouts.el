@@ -49,7 +49,8 @@ start.")
    " "
    (mapconcat 'my//workspace-format-name
               (eyebrowse--get 'window-configs) " | ")
-   (if (equal 1 my--ts-full-hint-toggle)
+
+(if (equal 1 my--ts-full-hint-toggle)
        my--workspaces-ts-full-hint
      (concat "  (["
              (propertize "?" 'face 'hydra-face-red)
@@ -59,6 +60,7 @@ start.")
   "Toggle the full hint docstring for the workspaces transient-state."
   (interactive)
   (setq my--ts-full-hint-toggle
+
         (logxor my--ts-full-hint-toggle 1)))
 
 (defun my/workspaces-ts-rename ()
@@ -337,6 +339,43 @@ perspectives does."
         "Always activate persp-mode, unless it is already active."
         (unless (bound-and-true-p persp-mode)
           (persp-mode)))
+
+(defun my//layouts-ts-toggle-hint ()
+  "Toggle the full hint docstring for the layouts transient-state."
+  (interactive)
+  (setq my--ts-full-hint-toggle
+        (logxor my--ts-full-hint-toggle 1)))
+
+(defun my//layout-format-name (name pos)
+  "Format the layout name given by NAME for display in mode-line."
+  (let* ((layout-name (if (file-directory-p name)
+                          (file-name-nondirectory (directory-file-name name))
+                        name))
+         (string-name (format "%s" layout-name))
+         (current (equal name (my//current-layout-name)))
+         (caption (concat (number-to-string (if (eq 9 pos) 0 (1+ pos)))
+                          ":" string-name)))
+    (if current
+        (propertize (concat "[" caption "]") 'face 'warning)
+      caption)))
+
+(defun my//layouts-ts-hint ()
+  "Return a one liner string containing all the layout names."
+  (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
+                         (list persp-nil-name)))
+         (formatted-persp-list
+          (concat " "
+                  (mapconcat (lambda (persp)
+                               (my//layout-format-name
+                                persp (position persp persp-list)))
+                             persp-list " | "))))
+    (concat
+     formatted-persp-list
+     (if (equal 1 my--ts-full-hint-toggle)
+         my--layouts-ts-full-hint
+       (concat "  (["
+               (propertize "?" 'face 'hydra-face-red)
+               "] help)")))))
 
 (defun my/layout-switch-by-pos (pos)
   "Switch to perspective of position POS."

@@ -476,4 +476,25 @@
                       "xrpe" 'rxt-pcre-to-elisp
                       "xrpx" 'rxt-pcre-to-rx))
 
+(setq projectile-sort-order 'recentf
+      projectile-cache-file (f-join user-cache-directory "projectile.cache")
+      projectile-known-projects-file (f-join user-cache-directory "projectile-bookmarks.eld"))
+(my/set-leader-keys
+  "p!" 'projectile-run-shell-command-in-root
+  "p&" 'projectile-run-async-shell-command-in-root
+  "pa" 'projectile-toggle-between-implementation-and-test
+  "pc" 'projectile-compile-project
+  "pD" 'projectile-dired
+  "pG" 'projectile-regenerate-tags
+  "pI" 'projectile-invalidate-cache
+  "pk" 'projectile-kill-buffers
+  "po" 'projectile-multi-occur
+  "pR" 'projectile-replace
+  "pT" 'projectile-find-test-file
+  "py" 'projectile-find-tag
+  "pl" 'my/helm-persp-switch-project)
+(projectile-global-mode)
+(my|hide-lighter projectile-mode)
+
+
 (provide 'my//basic/ui/misc-options)
