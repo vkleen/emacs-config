@@ -65,12 +65,6 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
                         (not (bound-and-true-p magit-blame-mode)))))
 
 (add-hook 'with-editor-mode-hook 'evil-normalize-keymaps)
-(--each '(normal motion)
-  (evil-define-key it with-editor-mode-map
-    (concat dotfile-leader-key dotfile-leader-key) 'with-editor-finish
-    (concat dotfile-leader-key "a")                'with-editor-cancel
-    (concat dotfile-leader-key "c")                'with-editor-finish
-    (concat dotfile-leader-key "k")                'with-editor-cancel))
 (define-key magit-status-mode-map (kbd "C-S-w") 'my/magit-toggle-whitespace)
 (setq magit-display-buffer-function 'my//fullscreen-magit)
 
